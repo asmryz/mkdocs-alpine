@@ -1,0 +1,37 @@
+site_name: My Docs
+site_url: https://example.com/docs/
+theme:
+  name: material
+  palette:
+    primary: white
+  features:
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: index.md
+  - 1. Node.js Setup: 04-nodejs-setup.md
+  - 2. Sync vs Async: 05-sync-vs-async-nodejs.md
+  - 3. JavaScript Basics: 01-javascript-basics.md
+  - 4. Functions: 02-functions.md
+  - 5. Async & Callbacks: 03-callbacks-promises-async-await.md
+  - 6. Express.js Basics: 08-expressjs-basics.md
+  - 7. Req & Res: 06-nodejs-request-response.md
+  - 8. Middlewares: 07-nodejs-middlewares.md
+  - 9. Routes & Modules: 09-routes-import-export.md
+  - 10. REST API: 10-rest-api-get-post.md
+  - 11. API Clients: 11-rest-api-client.md
+  - 12. Alpine.js CRUD: 12-alpinejs-crud-app.md
+  - 13. Final Project: 13-final-project.md
