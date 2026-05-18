@@ -1,4 +1,4 @@
-# 12. REST API Clients
+# 13. REST API Clients
 
 How do we test our API without building a whole website first? We use **API Clients**.
 

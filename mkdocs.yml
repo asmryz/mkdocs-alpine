@@ -1,38 +1,41 @@
 site_name: Database Systems Project
 site_url: https://example.com/docs/
 theme:
-  name: material
-  palette:
-    primary: white
-  features:
-    - content.code.copy
+    name: material
+    palette:
+        primary: white
+    features:
+        - content.code.copy
 
 extra_css:
-  - stylesheets/extra.css
+    - stylesheets/extra.css
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-      linenums: true
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+    - pymdownx.highlight:
+          anchor_linenums: true
+          linenums: true
+    - pymdownx.tabbed:
+          alternate_style: true
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                format: pymdownx.superfences.fence_code_format
 
 nav:
-  - Home: index.md
-  - 1. Node.js Setup: 04-nodejs-setup.md
-  - 2. Sync vs Async Code: 05-sync-vs-async-nodejs.md
-  - 3. JavaScript Basics: 01-javascript-basics.md
-  - 4. Functions: 02-functions.md
-  - 5. Promises: 03-callbacks-promises-async-await.md
-  - 6. Express.js Basics: 08-expressjs-basics.md
-  - 7. Req & Res: 06-nodejs-request-response.md
-  - 8. Middlewares: 07-nodejs-middlewares.md
-  - 9. Project Structure: 14-project-structure.md
-  - 10. Routes & Modules: 09-routes-import-export.md
-  - 11. REST API: 10-rest-api-get-post.md
-  - 12. API Clients: 11-rest-api-client.md
-  - 13. Alpine.js CRUD: 12-alpinejs-crud-app.md
-  - 14. Final Project: 13-final-project.md
+    - Home: index.md
+    - 1. Node.js Setup: nodejs-setup.md
+    - 2. Sync vs Async Code: sync-vs-async-nodejs.md
+    - 3. JavaScript Basics: javascript-basics.md
+    - 4. Functions: functions.md
+    - 5. Promises: callbacks-promises-async-await.md
+    - 6. Express.js Basics: expressjs-basics.md
+    - 7. Req & Res: nodejs-request-response.md
+    - 8. Middlewares: nodejs-middlewares.md
+    - 9. Project Structure: project-structure.md
+    - 10. Routes & Modules: routes-import-export.md
+    - 11. PostgreSQL Connectivity: postgresql-connectivity.md
+    - 12. REST API: rest-api-get-post.md
+    - 13. API Clients: rest-api-client.md
+    - 14. Alpine.js CRUD: alpinejs-crud-app.md
+    - 15. Final Project: final-project.md

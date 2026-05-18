@@ -1,0 +1,2054 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://example.com/docs/nodejs-middlewares/">
+      
+      
+        <link rel="prev" href="../nodejs-request-response/">
+      
+      
+        <link rel="next" href="../project-structure/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>8. Middlewares - Database Systems Project</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#08-middleware-in-nodejs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Database Systems Project" class="md-header__button md-logo" aria-label="Database Systems Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Database Systems Project
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8. Middlewares
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Database Systems Project" class="md-nav__button md-logo" aria-label="Database Systems Project" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Database Systems Project
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodejs-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Node.js Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync-vs-async-nodejs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Sync vs Async Code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. JavaScript Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../callbacks-promises-async-await/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Promises
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../expressjs-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Express.js Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodejs-request-response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Req & Res
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Middlewares
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Middlewares
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Middleware Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-logger-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Logger Middleware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Logger Middleware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-middleware-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What This Middleware Does
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What This Middleware Does">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-add-custom-data-to-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Add Custom Data to Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-log-request-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Log Request Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-call-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Call next()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-middleware-globally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Middleware Globally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-authentication-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Authentication Middleware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Authentication Middleware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allowed-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowed User
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unauthorized-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unauthorized User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-level-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route-Level Middleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#successful-request-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Successful Request Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failed-request-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failed Request Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-middleware-in-express" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Middleware in Express
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-middleware-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Middleware Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Middleware Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Middleware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-life-middleware-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Life Middleware Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Middleware Execution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-middleware-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your Middleware Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-middleware-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛣️ The Middleware Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Why use Middleware?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-example-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Simple Example (Logic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Practice Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Project Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routes-import-export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Routes & Modules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql-connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. PostgreSQL Connectivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-api-get-post/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. REST API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-api-client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. API Clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alpinejs-crud-app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Alpine.js CRUD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../final-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Final Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Middleware Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-logger-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Logger Middleware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Logger Middleware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-middleware-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What This Middleware Does
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What This Middleware Does">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-add-custom-data-to-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Add Custom Data to Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-log-request-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Log Request Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-call-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Call next()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-middleware-globally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Middleware Globally
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-authentication-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Authentication Middleware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Authentication Middleware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameter
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allowed-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowed User
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unauthorized-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unauthorized User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#route-level-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route-Level Middleware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#successful-request-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Successful Request Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failed-request-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failed Request Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-middleware-in-express" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Middleware in Express
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-middleware-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Middleware Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Middleware Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#json-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Middleware
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-life-middleware-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Life Middleware Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#middleware-execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Middleware Execution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Rule
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-middleware-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your Middleware Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Analogy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-middleware-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛣️ The Middleware Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-middleware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Why use Middleware?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-example-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Simple Example (Logic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Practice Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="08-middleware-in-nodejs">08. Middleware in Node.js</h1>
+<p>Middleware functions are functions that have access to the request and response objects and are executed during the lifecycle of a request.</p>
+<h2 id="learning-objectives">🎯 Learning Objectives</h2>
+<ul>
+<li>Understanding the purpose of middleware.</li>
+<li>Learning the "Pipeline" concept.</li>
+<li>Implementing a simple logging middleware.</li>
+</ul>
+<p>In Node.js and Express.js, a <strong>middleware</strong> is a function that runs <strong>between the request and the response</strong>.</p>
+<p>Middleware can:</p>
+<ul>
+<li>Read request data</li>
+<li>Modify request or response objects</li>
+<li>Execute code</li>
+<li>Stop requests</li>
+<li>Call the next middleware</li>
+<li>Send responses</li>
+</ul>
+<h2 id="middleware-flow">Middleware Flow</h2>
+<p><code>mermaid
+flowchart TD
+    A[Client Request] --&gt; B[Middleware 1]
+    B --&gt; C[Middleware 2]
+    C --&gt; D[Route Handler]
+    D --&gt; E[Response Sent to Client]</code></p>
+<p>In your code, you created two middleware functions:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="nx">req</span><span class="p">.</span><span class="nx">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;br&gt;This is from logger middleware!&quot;</span><span class="p">;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">  </span><span class="nx">next</span><span class="p">();</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>and</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;peter&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nx">next</span><span class="p">();</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;Unauthorized Access&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="1-logger-middleware">1. Logger Middleware</h2>
+<h3 id="code">Code</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">  </span><span class="nx">req</span><span class="p">.</span><span class="nx">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;br&gt;This is from logger middleware!&quot;</span><span class="p">;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="nx">next</span><span class="p">();</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="explanation">Explanation</h3>
+<h4 id="parameters">Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>req</code></td>
+<td>Request object</td>
+</tr>
+<tr>
+<td><code>res</code></td>
+<td>Response object</td>
+</tr>
+<tr>
+<td><code>next</code></td>
+<td>Function to move to next middleware</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="what-this-middleware-does">What This Middleware Does</h3>
+<h4 id="step-1-add-custom-data-to-request">Step 1: Add Custom Data to Request</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nx">req</span><span class="p">.</span><span class="nx">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;br&gt;This is from logger middleware!&quot;</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>You are adding a new property called <code>msg</code> into the request object.</p>
+<p>Now every route after this middleware can use:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nx">req</span><span class="p">.</span><span class="nx">msg</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h4 id="step-2-log-request-information">Step 2: Log Request Information</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Example output:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>GET /
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>GET /about
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>GET /login?username=peter
+</code></pre></div></td></tr></table></div>
+<hr />
+<h4 id="step-3-call-next">Step 3: Call next()</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="nx">next</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<p>This is VERY IMPORTANT.</p>
+<p><code>next()</code> tells Express:</p>
+<blockquote>
+<p>"Continue to the next middleware or route."</p>
+</blockquote>
+<p>Without <code>next()</code>, the request will hang forever.</p>
+<hr />
+<h4 id="using-middleware-globally">Using Middleware Globally</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>This means:</p>
+<blockquote>
+<p>Run logger middleware for EVERY request.</p>
+</blockquote>
+<p>So these routes all use logger:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="err">/</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w"> </span><span class="err">/about</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w"> </span><span class="err">/login</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w"> </span><span class="err">/api</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="example-flow">Example Flow</h2>
+<p>User visits:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>http://localhost:3000/about
+</code></pre></div></td></tr></table></div>
+<p>Flow:</p>
+<p><code>mermaid
+flowchart TD
+    A["Request received"] --&gt; B["logger middleware runs"]
+    B --&gt; C["req.msg added"]
+    C --&gt; D["console.log executed"]
+    D --&gt; E["next()"]
+    E --&gt; F["/about route executes"]
+    F --&gt; G["response sent"]</code></p>
+<p>Final response:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>About Us!
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>This is from logger middleware!
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="2-authentication-middleware">2. Authentication Middleware</h2>
+<h3 id="code_1">Code</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;peter&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">    </span><span class="nx">next</span><span class="p">();</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="w">    </span><span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;Unauthorized Access&quot;</span><span class="p">);</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="purpose">Purpose</h2>
+<p>This middleware checks if the user is authorized.</p>
+<hr />
+<h2 id="query-parameter">Query Parameter</h2>
+<p>If URL is:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>/login?username=peter
+</code></pre></div></td></tr></table></div>
+<p>Then:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username</span>
+</code></pre></div></td></tr></table></div>
+<p>contains:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="s2">&quot;peter&quot;</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="authentication-logic">Authentication Logic</h2>
+<h3 id="allowed-user">Allowed User</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;peter&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>If username is <code>"peter"</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nx">next</span><span class="p">();</span>
+</code></pre></div></td></tr></table></div>
+<p>User is allowed.</p>
+<hr />
+<h3 id="unauthorized-user">Unauthorized User</h3>
+<p>Otherwise:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&quot;Unauthorized Access&quot;</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>The request stops here.</p>
+<p>No next middleware or route will run.</p>
+<hr />
+<h2 id="route-level-middleware">Route-Level Middleware</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">auth</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w">  </span><span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="sb">`Welcome to the dashboard!  </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+<p>This means:</p>
+<p>```mermaid
+flowchart LR
+    A["/login"]
+    B["auth middleware"]
+    C["route handle"]</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>A --&gt; B --&gt; C
+</code></pre></div></td></tr></table></div>
+<p>```</p>
+<p>The middleware only works for <code>/login</code>.</p>
+<hr />
+<h2 id="successful-request-example">Successful Request Example</h2>
+<p>URL:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>http://localhost:3000/login?username=peter
+</code></pre></div></td></tr></table></div>
+<p>Flow:</p>
+<p>```mermaid
+flowchart LR
+    A["logger middleware"]
+    B["auth middleware"]
+    C["route handle"]
+    D["response"]</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>A --&gt; B --&gt; C --&gt; D
+</code></pre></div></td></tr></table></div>
+<p>```</p>
+<p>Response:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>Welcome to the dashboard!
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>This is from logger middleware!
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="failed-request-example">Failed Request Example</h2>
+<p>URL:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>http://localhost:3000/login
+</code></pre></div></td></tr></table></div>
+<p>or</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>http://localhost:3000/login?username=ali
+</code></pre></div></td></tr></table></div>
+<p>Response:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>Unauthorized Access
+</code></pre></div></td></tr></table></div>
+<p>Route handler will NOT execute.</p>
+<hr />
+<h2 id="types-of-middleware-in-express">Types of Middleware in Express</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application Middleware</td>
+<td><code>app.use()</code></td>
+</tr>
+<tr>
+<td>Route Middleware</td>
+<td>Used on specific route</td>
+</tr>
+<tr>
+<td>Built-in Middleware</td>
+<td><code>express.json()</code></td>
+</tr>
+<tr>
+<td>Third-party Middleware</td>
+<td><code>cors</code>, <code>morgan</code></td>
+</tr>
+<tr>
+<td>Error Middleware</td>
+<td>Handles errors</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="built-in-middleware-example">Built-in Middleware Example</h2>
+<h3 id="json-middleware">JSON Middleware</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</code></pre></div></td></tr></table></div>
+<p>This converts JSON request body into JavaScript object.</p>
+<p>Example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="p">{</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ali&quot;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Accessible as:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">name</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="real-life-middleware-examples">Real-Life Middleware Examples</h2>
+<table>
+<thead>
+<tr>
+<th>Middleware</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logger</td>
+<td>Log requests</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>Verify user</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>Check permissions</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Validate data</td>
+</tr>
+<tr>
+<td>CORS</td>
+<td>Allow frontend access</td>
+</tr>
+<tr>
+<td>JSON Parser</td>
+<td>Parse JSON body</td>
+</tr>
+<tr>
+<td>Error Handler</td>
+<td>Handle application errors</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="middleware-execution-order">Middleware Execution Order</h2>
+<p>Order matters in Express.</p>
+<p>Example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">auth</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Execution:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>logger → auth → route
+</code></pre></div></td></tr></table></div>
+<p>If reversed:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">auth</span><span class="p">);</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">logger</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>Execution becomes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>auth → logger → route
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="important-rule">Important Rule</h2>
+<p>Always:</p>
+<ul>
+<li>call <code>next()</code>
+  OR</li>
+<li>send a response</li>
+</ul>
+<p>Otherwise request hangs.</p>
+<p>Wrong:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span>
+<span class="normal"><a href="#__codelineno-32-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">middleware</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>Correct:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span>
+<span class="normal"><a href="#__codelineno-33-3">3</a></span>
+<span class="normal"><a href="#__codelineno-33-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">middleware</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a><span class="w">  </span><span class="nx">next</span><span class="p">();</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a><span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<hr />
+<h2 id="your-middleware-summary">Your Middleware Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Middleware</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>logger</code></td>
+<td>Logs request and adds custom message</td>
+</tr>
+<tr>
+<td><code>auth</code></td>
+<td>Checks username authorization</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="simple-analogy">Simple Analogy</h2>
+<p>Middleware is like a security checkpoint:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span>
+<span class="normal"><a href="#__codelineno-34-5">5</a></span>
+<span class="normal"><a href="#__codelineno-34-6">6</a></span>
+<span class="normal"><a href="#__codelineno-34-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a>Request enters server
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a>↓
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a>Security checks (middleware)
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a>↓
+<a id="__codelineno-34-5" name="__codelineno-34-5"></a>Allowed to enter route
+<a id="__codelineno-34-6" name="__codelineno-34-6"></a>↓
+<a id="__codelineno-34-7" name="__codelineno-34-7"></a>Response returned
+</code></pre></div></td></tr></table></div>
+<h2 id="the-middleware-pipeline">🛣️ The Middleware Pipeline</h2>
+<p>Think of middleware as a security check or a logger that sits between the <strong>User</strong> and the <strong>Final Logic</strong>.</p>
+<p>```mermaid
+flowchart LR
+    A["User Request"]
+    B["Middleware 1"]
+    C["Middleware 2"]
+    D["Final Logic"]
+    E["Response"]</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>A --&gt; B --&gt; C --&gt; D --&gt; E
+</code></pre></div></td></tr></table></div>
+<p>```</p>
+<h2 id="why-use-middleware">📦 Why use Middleware?</h2>
+<ol>
+<li><strong>Logging</strong>: Record every request that hits the server.</li>
+<li><strong>Authentication</strong>: Check if the user is logged in before letting them see private data.</li>
+<li><strong>Parsing</strong>: Convert incoming data (like JSON) into something JS can understand.</li>
+<li><strong>Error Handling</strong>: Catch errors and send a friendly message.</li>
+</ol>
+<h2 id="simple-example-logic">🛠️ Simple Example (Logic)</h2>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span>
+<span class="normal"><a href="#__codelineno-35-2">2</a></span>
+<span class="normal"><a href="#__codelineno-35-3">3</a></span>
+<span class="normal"><a href="#__codelineno-35-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">logger</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">()</span><span class="si">}</span><span class="sb"> - </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a><span class="w">  </span><span class="nx">next</span><span class="p">();</span><span class="w"> </span><span class="c1">// Go to the next middleware or logic!</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+If you forget to call <code>next()</code>, the request will hang forever!</p>
+<h2 id="practice-exercise">❓ Practice Exercise</h2>
+<p>Imagine you want to block users who are not from your country. How would middleware help?
+- <strong>Answer</strong>: It would check the request headers and if they aren't from the allowed country, it would send an error response <em>before</em> even reaching your main application logic.</p>
+<hr />
+<p><strong>Summary</strong>: Middleware is like a filter. It processes requests before they reach their final destination!</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -14,7 +14,7 @@ project/
 ├── index.js
 ├── package.lock.json
 ├── package.json
-└── data/
+└── utils/
 ```
 
 <!-- ```text
@@ -34,7 +34,7 @@ node -v
 npm -v
 ```
 
-You should see version numbers. If not, refer to [04. Node.js Setup](04-nodejs-setup.md).
+You should see version numbers. If not, refer to [04. Node.js Setup](nodejs-setup.md).
 
 Create directory name `project`
 ```sh title="Command Prompt"
@@ -133,5 +133,7 @@ project/
 ├── index.js
 ├── package.lock.json
 ├── package.json
-└── data/
+└── utils/
 ```
+
+
