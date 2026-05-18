@@ -1,4 +1,4 @@
-# 10. REST API Basics
+# 11. REST API Basics
 
 A REST API allows different applications to talk to each other using JSON.
 

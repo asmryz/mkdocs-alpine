@@ -1,4 +1,4 @@
-# 03. Callbacks, Promises, and Async/Await
+# 05. Callbacks, Promises, and Async/Await
 
 JavaScript is asynchronous, meaning it doesn't always wait for one task to finish before starting the next. This is crucial for tasks like fetching data from a database.
 

@@ -1,4 +1,4 @@
-# 12. Alpine.js CRUD Application
+# 13. Alpine.js CRUD Application
 
 Now we will build a frontend that uses our API! We will use **Alpine.js**, a lightweight frontend framework that works perfectly for small projects.
 

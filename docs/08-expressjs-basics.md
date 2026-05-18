@@ -1,4 +1,4 @@
-# 08. Express.js Basics
+# 06. Express.js Basics
 
 Express is a fast, unopinionated, minimalist web framework for Node.js. It simplifies everything we learned in raw Node.js.
 

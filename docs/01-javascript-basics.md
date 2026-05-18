@@ -1,4 +1,4 @@
-# 01. JavaScript Basics
+# 03. JavaScript Basics
 
 JavaScript (JS) is the language of the web. It allows you to make web pages interactive and build powerful backends.
 

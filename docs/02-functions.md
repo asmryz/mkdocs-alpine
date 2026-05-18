@@ -1,4 +1,4 @@
-# 02. JavaScript Functions
+# 04. JavaScript Functions
 
 Functions are blocks of code designed to perform a particular task. They are "called" when you need them.
 

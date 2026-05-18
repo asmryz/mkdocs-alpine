@@ -1,4 +1,4 @@
-# 05. Synchronous vs Asynchronous Code
+# 02. Synchronous vs Asynchronous Code
 
 Node.js is famous for being "non-blocking". Understanding this is the key to building fast applications.
 

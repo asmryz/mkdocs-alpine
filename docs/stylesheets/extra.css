@@ -28,3 +28,24 @@
   display: block;
   margin: 0 auto;
 }
+
+.md-footer {
+  background-color: white !important;
+  color: black !important;
+}
+
+.md-footer-meta {
+  background-color: white !important;
+  color: black !important;
+}
+
+.md-footer-meta__inner,
+.md-footer-copyright,
+.md-footer-copyright__highlight,
+.md-footer a,
+.md-footer a:link,
+.md-footer a:visited,
+.md-footer .md-icon svg {
+  color: black !important;
+  fill: black !important;
+}

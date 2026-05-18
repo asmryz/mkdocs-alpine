@@ -1,4 +1,4 @@
-# 06. Request and Response in Node.js
+# 07. Request and Response in Node.js
 
 Web communication is built on the **Request** and **Response** cycle.
 

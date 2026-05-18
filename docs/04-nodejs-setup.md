@@ -1,4 +1,4 @@
-# 04. Node.js Setup Using NVM
+# 01. Node.js Setup Using NVM
 
 Node.js is the runtime that allows us to run JavaScript on our computer instead of just inside a browser.
 

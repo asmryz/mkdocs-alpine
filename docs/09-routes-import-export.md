@@ -1,4 +1,4 @@
-# 09. Routes, Import and Export
+# 10. Routes, Import and Export
 
 As your application grows, putting everything in one file makes it messy. We need to split our code into modules.
 

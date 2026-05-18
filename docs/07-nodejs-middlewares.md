@@ -1,4 +1,4 @@
-# 07. Middleware in Node.js
+# 08. Middleware in Node.js
 
 Middleware functions are functions that have access to the request and response objects and are executed during the lifecycle of a request.
 

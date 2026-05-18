@@ -1,4 +1,4 @@
-site_name: My Docs
+site_name: Database Systems Project
 site_url: https://example.com/docs/
 theme:
   name: material
@@ -23,10 +23,10 @@ markdown_extensions:
 nav:
   - Home: index.md
   - 1. Node.js Setup: 04-nodejs-setup.md
-  - 2. Sync vs Async: 05-sync-vs-async-nodejs.md
+  - 2. Sync vs Async Code: 05-sync-vs-async-nodejs.md
   - 3. JavaScript Basics: 01-javascript-basics.md
   - 4. Functions: 02-functions.md
-  - 5. Async & Callbacks: 03-callbacks-promises-async-await.md
+  - 5. Promises: 03-callbacks-promises-async-await.md
   - 6. Express.js Basics: 08-expressjs-basics.md
   - 7. Req & Res: 06-nodejs-request-response.md
   - 8. Middlewares: 07-nodejs-middlewares.md
