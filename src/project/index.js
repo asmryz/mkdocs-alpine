@@ -1,11 +1,9 @@
 import express from 'express';
+import courseRoutes from './routes/courseRoutes.js';
 const app = express();
 const PORT = 4000;
 
-// Basic Route
-app.get('/', (req, res) => {
-  res.send('Welcome to Express!');
-});
+app.use('/api', courseRoutes);
 
 app.listen(PORT, () => {
   console.log(`Express server running at http://localhost:${PORT}`);
