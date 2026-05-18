@@ -30,8 +30,9 @@ nav:
   - 6. Express.js Basics: 08-expressjs-basics.md
   - 7. Req & Res: 06-nodejs-request-response.md
   - 8. Middlewares: 07-nodejs-middlewares.md
-  - 9. Routes & Modules: 09-routes-import-export.md
-  - 10. REST API: 10-rest-api-get-post.md
-  - 11. API Clients: 11-rest-api-client.md
-  - 12. Alpine.js CRUD: 12-alpinejs-crud-app.md
-  - 13. Final Project: 13-final-project.md
+  - 9. Project Structure: 14-project-structure.md
+  - 10. Routes & Modules: 09-routes-import-export.md
+  - 11. REST API: 10-rest-api-get-post.md
+  - 12. API Clients: 11-rest-api-client.md
+  - 13. Alpine.js CRUD: 12-alpinejs-crud-app.md
+  - 14. Final Project: 13-final-project.md
