@@ -15,7 +15,7 @@ Before we start, ensure you have:
 - A text editor (we recommend **VS Code**).
 - A terminal (Command Prompt, PowerShell, or Bash).
 - An internet connection to download dependencies.
-
+<!-- 
 ## 📁 Project Structure
 During this workshop, we will follow this structure:
 ```text
@@ -62,4 +62,4 @@ Once you've built your `server.js` and `public/index.html`, follow these steps:
    Go to `http://localhost:3000` to see your Alpine.js CRUD app in action!
 
 ---
-**Summary**: You are ready to start! Let's dive into JavaScript basics in the next section.
+**Summary**: You are ready to start! Let's dive into JavaScript basics in the next section. -->

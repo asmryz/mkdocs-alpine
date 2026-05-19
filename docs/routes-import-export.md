@@ -14,7 +14,7 @@ project/
 ├── index.js
 ├── package.lock.json
 ├── package.json
-└── data/
+└── utils/
 ```
 
 ## Create Routes Folder
@@ -29,7 +29,7 @@ project/
 ├── index.js
 ├── package.lock.json
 ├── package.json
-└── data/
+└── utils/
 ```
 ```javascript title="courseRoutes.js"
 import express from 'express';
@@ -243,7 +243,7 @@ It is one of the most important concepts in building scalable Express applicatio
 - `express.Router()`: Creates a mini-app for specific routes.
 
 ## ❓ Practice Task
-Create a `data/teachers.js` file and a corresponding `routes/teacherRoutes.js`. Connect them to your main `index.js`.
+Create a `utils/teachers.js` file and a corresponding `routes/teacherRoutes.js`. Connect them to your main `index.js`.
 
 ---
 **Summary**: Splitting code into files makes it maintainable and organized!

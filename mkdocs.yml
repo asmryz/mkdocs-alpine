@@ -6,6 +6,7 @@ theme:
         primary: white
     features:
         - content.code.copy
+        - content.tabs.link
 
 extra_css:
     - stylesheets/extra.css
