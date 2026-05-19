@@ -4,17 +4,22 @@ Now we will build a frontend that uses our API! We will use **Alpine.js**, a lig
 
 ## 🎯 Learning Objectives
 
-- Connecting Frontend to Backend using `fetch()`.
-- Using Alpine.js for data binding and reactivity.
-- Building a full CRUD (Create, Read, Update, Delete) UI.
+* **Connecting Frontend to Backend using `fetch()`**: Learn how to use the modern browser `fetch` API to send asynchronous HTTP requests to backend REST API endpoints. You will practice utilizing `fetch` for various HTTP verbs (like `GET` and `POST`), parsing JSON response streams with `.json()`, and using `async`/`await` patterns for clean, robust asynchronous control flow.
+* **Using Alpine.js for data binding and reactivity**: Understand the paradigm of reactive UI development. You will learn how Alpine.js keeps your application state and DOM synchronized in real-time, eliminating the need for tedious manual DOM queries (such as `document.getElementById`) or explicit DOM manipulations when data changes.
+* **Building a full CRUD (Create, Read, Update, Delete) UI**: Master the integration of CRUD features. You will learn to construct dynamic interactive components, display tabular database records, load specific items into editing forms, save user updates securely back to a persistent database, and reflect those changes instantly on the screen.
 
 ## 🔍 Key Alpine.js Directives
 
-- `x-data`: Defines the component logic.
-- `x-model`: Syncs an input field with a variable.
-- `x-for`: Loops through an array to create elements.
-- `@click`: Listens for a click event.
-- `init()`: Runs automatically when the component loads.
+* **`x-data`**: Declares a new reactive component scope and defines its initial state (variables and functions). Any HTML element within this element's tree can seamlessly read and write to this reactive state.
+  * *Example*: `<div x-data="{ count: 0 }">` initializes a component with a `count` property set to `0`.
+* **`x-model`**: Establishes dynamic, two-way data binding on form input elements (such as `<input>`, `<textarea>`, or `<select>`). Any changes the user types into the input immediately update the underlying JavaScript state, and any programmatic changes to the state are immediately reflected in the input value.
+  * *Example*: `<input type="text" x-model="selectedCourse.title">` binds the input's value to `selectedCourse.title`.
+* **`x-for`**: Renders elements dynamically by iterating through a collection or array, similar to a JavaScript loop. It requires a `<template>` wrapper and a unique key binding (e.g., `:key`) to optimize DOM rendering and track changes.
+  * *Example*: `<template x-for="course in courses" :key="course.cid">` renders a row for each course in the list.
+* **`@click`**: A powerful, shorthand directive for `x-on:click` that registers event listeners to capture pointer click events on an element. It triggers either inline JavaScript expressions or references to methods defined inside the component scope.
+  * *Example*: `<button type="button" @click="Save()">Update</button>` calls the component's `Save` method on click.
+* **`init()` / `x-init`**: A lifecycle hook or directive that runs custom initialization expressions or functions automatically after Alpine.js has successfully initialized the component and mounted it to the DOM. This is the ideal lifecycle stage for pre-fetching data from remote APIs.
+  * *Example*: `<body x-data="App()" x-init="getCourses()">` calls the `getCourses` method as soon as the body element initializes.
 
 ---
 
@@ -210,8 +215,10 @@ function App() {
 	  }
 ```
 
-![Title Links](assests/edit.png) 3. When we click on any course Title, it will show alert
-![Alert Course Id](assests/alert.png) 4. If courses are already fetched we can use `find()` method to return single course. if we need to ftech data from other table than we need to call REST API call to retrieve course by Id.
+![Title Links](assests/edit.png) 
+3. When we click on any course Title, it will show alert
+![Alert Course Id](assests/alert.png) 
+4. If courses are already fetched we can use `find()` method to return single course. if we need to ftech data from other table than we need to call REST API call to retrieve course by Id.
 
 ```javascript title="app.js" hl_lines="4 11-15"
 function App() {
@@ -258,6 +265,70 @@ router.get("/courses/:cid", async (req, res) => {
 </div>
 ```
 ![Course Details](assests/details.png)
+5. Create a `<form>` tags, to display selectedCourse in a form. In an `@click` event `Save()` method is used to call POST API to save changes in database. we are using `x-model` to bind the data in form fields.
+```javascript title="index.html" hl_lines="3-29"
+        <div x-show="Object.keys(selectedCourse).length !== 0">
+            <h2>Course Details</h2>
+            <form>
+                <table>
+                    <tr>
+                        <th>Id : </th>
+                        <td><input type="text" x-model="selectedCourse.cid" name="cid" readonly size="1"></td>
+                    </tr>
+                    <tr>
+                        <th>Code : </th>
+                        <td><input type="text" x-model="selectedCourse.code" name="code" size="5"></td>
+                    </tr>
+                    <tr>
+                        <th>Title : </th>
+                        <td><textarea x-model="selectedCourse.title" name="title" rows="2" cols="30"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>CrHr : </th>
+                        <td><input type="text" x-model="selectedCourse.crhr" name="crhr" size="3"></td>
+                    </tr>
+                    <tr>
+                        <th>Semester : </th>
+                        <td><input type="text" x-model="selectedCourse.semester" name="semester" size="3"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><button type="button" @click="Save()">Update</button></td>
+                    </tr>
+                </table>
+            </form>
+            <pre x-text="JSON.stringify(selectedCourse, null, 2)"></pre>
+        </div>
+```
+6. Create Save function in `app.js` to update the course. It will call POST API to save changes in database.
+```javascript title="app.js" 
+        async Save() {
+            const response = await fetch("/api/courses", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(this.selectedCourse),
+            }).then(res => res.json());
+            this.selectedCourse = {};
+            await this.getCourses();
+        }
+```
+7. Write a POST API to update the course. It will check if cid is present in the body and update the course using SQL UPDATE statement. 
+
+```javascript title="courseRoutes.js" hl_lines="9-13"
+router.post("/courses", async (req, res) => {
+    const { cid, code, title, crhr, semester } = req.body;
+    if (cid) {
+        const course = await SQL`UPDATE course SET code = ${code}, title = ${title}, crhr = ${crhr}, semester = ${semester} WHERE cid = ${cid} RETURNING *;`;
+        res.status(200).json(course[0]);
+    }
+});
+```
+8. Now we can edit and save the course. 
+
+
+
+# ❓ Practice Task
 ## 🛠️ The Backend Setup
 
 Ensure your Express server handles all CRUD methods:

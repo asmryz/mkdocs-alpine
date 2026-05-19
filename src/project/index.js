@@ -8,6 +8,7 @@ const PORT = 4000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(__dirname + "/public"));
+app.use(express.json());
 app.use("/api", courseRoutes);
 
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "views", "index.html")));
