@@ -5,8 +5,15 @@ const { SQL } = await import("../utils/db.js");
 // Basic Route
 router.get("/courses", async (req, res) => {
     // Fetch all rows from the courses table
-    const courses = await SQL`SELECT * FROM courses ORDER BY cid;`;    
+    const courses = await SQL`SELECT * FROM course ORDER BY cid;`;    
     res.status(200).json(courses);
 });
+
+router.get("/courses/:cid", async (req, res) => {
+    const { cid } = req.params;
+    const course = await SQL`SELECT * FROM course WHERE cid = ${cid};`;
+    res.status(200).json(course[0]);
+});
+
 
 export default router;

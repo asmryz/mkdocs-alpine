@@ -3,8 +3,10 @@
 How do we test our API without building a whole website first? We use **API Clients**.
 
 ## 🎯 Learning Objectives
+- Create project setup
 - Testing GET requests in the browser.
 - Learning to use POST, PUT, and DELETE with tools like `curl` or VS Code extensions.
+
 
 ## 🛠️ Recommended Tools
 1. **VS Code REST Client**: An extension for VS Code (highly recommended!).

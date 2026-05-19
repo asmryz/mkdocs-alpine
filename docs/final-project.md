@@ -3,13 +3,13 @@
 Congratulations! You've reached the end of the workshop. Your final challenge is to build a complete **Student Management System**.
 
 ## 📋 Project Requirements
-Your application must include:
-1. **View List**: See all students in a clean table or list.
-2. **Add Student**: A form to add a new student (Name and Age).
-3. **Delete Student**: A button to remove a student from the list.
-4. **Edit Student**: (Challenge!) A button to edit an existing student name.
-5. **Validation**: Prevent adding students with empty names.
-6. **Alerts**: Show a success message when a student is added.
+Your application must include:  
+1. **View List**: See all students in a clean table or list.    
+2. **Add Student**: A form to add a new student (Name and Age).     
+3. **Delete Student**: A button to remove a student from the list.    
+4. **Edit Student**: (Challenge!) A button to edit an existing student name.    
+5. **Validation**: Prevent adding students with empty names.    
+6. **Alerts**: Show a success message when a student is added.  
 
 ## 📁 Recommended Structure
 ```text
