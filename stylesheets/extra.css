@@ -1,0 +1,55 @@
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+	font-weight: 500;
+}
+
+.md-nav__link--active {
+    color: black;
+	font-weight: 700;
+}
+
+.md-typeset .highlight.text,
+.md-typeset .highlight.text pre,
+.md-typeset .highlight.text code {
+  background-color: #333333 !important;
+  color: #dddddd !important;
+}
+
+.md-grid {
+  max-width: 100%;
+}
+
+.md-typeset img {
+  max-width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.md-footer {
+  background-color: white !important;
+  color: black !important;
+}
+
+.md-footer-meta {
+  background-color: white !important;
+  color: black !important;
+}
+
+.md-footer-meta__inner,
+.md-footer-copyright,
+.md-footer-copyright__highlight,
+.md-footer a,
+.md-footer a:link,
+.md-footer a:visited,
+.md-footer .md-icon svg {
+  color: black !important;
+  fill: black !important;
+}
+
+.no-thead thead {
+  display: none;
+}

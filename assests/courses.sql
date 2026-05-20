@@ -1,0 +1,52 @@
+DROP TABLE IF EXISTS "course";
+
+CREATE TABLE IF NOT EXISTS "course" (
+  cid INT PRIMARY KEY,
+  code varchar (10),
+  title varchar (100),
+  crhr INT,
+  semester INT
+);
+
+INSERT INTO "course" ("cid", "code", "title", "crhr", "semester")
+VALUES
+  (1, 'CS1102', 'Calculus and Analytical Geometry', 3, 1),
+  (2, 'CS1111', 'English Composition and Comprehension', 3, 1),
+  (3, 'CS1114', 'Introduction to Computer Sciences', 4, 1),
+  (4, 'CS1118', 'Fundamentals of Programming', 4, 1),
+  (5, 'CS1206', 'Islamiat and Pakistan Studies / Humanities', 3, 1),
+  (6, 'CS1108', 'Object Oriented Programming', 3, 2),
+  (7, 'CS1211', 'Technical and Business Writing', 3, 2),
+  (8, 'CS1215', 'Physics and Basic Electronics', 4, 2),
+  (9, 'CS2414', 'Multivariate Calculus', 3, 2),
+  (10, 'CS3505', 'Discrete Mathematical Structures', 3, 2),
+  (11, 'CS1205', 'Oral Communication and Presentation Skills', 3, 3),
+  (12, 'CS2305', 'Linear Algebra and Differential Equations', 3, 3),
+  (13, 'CS2313', 'Data Structures and Algorithms', 3, 3),
+  (14, 'CS2317', 'Digital Logic Design', 4, 3),
+  (15, 'CS2318', 'Operating Systems Concepts', 4, 3),
+  (16, 'CS1212', 'Statistics and Probability', 3, 4),
+  (17, 'CS2411', 'Computer Organization and Assembly Language', 3, 4),
+  (18, 'CS2417', 'Introduction to Software Development', 4, 4),
+  (19, 'CS2418', 'Computer Data Communications and Networks', 4, 4),
+  (20, 'CS2421', 'Relational Database Systems', 4, 4),
+  (21, 'CS2314', 'Finite Automata Theory and Formal Languages', 3, 5),
+  (22, 'CS2315', 'Web Engineering', 3, 5),
+  (23, 'CS2415', 'Human Computer Interaction', 3, 5),
+  (24, 'CS3517', 'Software Engineering Concepts', 4, 5),
+  (25, 'CS3521', 'Computer Architecture', 4, 5),
+  (26, 'CS3607', 'Advanced Web Technologies', 3, 6),
+  (27, 'CS3611', 'Analysis of Algorithms', 3, 6),
+  (28, 'CS3612', 'Software Engineering-II', 3, 6),
+  (29, 'CS3619', 'Numerical and Symbolic Computation', 3, 6),
+  (30, 'CS3624', 'Compiler Construction', 3, 6),
+  (31, 'CS4615', 'Android Application Development', 3, 7),
+  (32, 'CS4702', 'Artificial Intelligence', 3, 7),
+  (33, 'CS4704', 'Project-I', 3, 7),
+  (34, 'CS4805', 'Professional Practices', 3, 7),
+  (35, 'CS4828', 'Auditing Information Systems', 3, 7),
+  (36, 'CS4617', 'iOS Development', 3, 8),
+  (37, 'CS4619', 'Data Warehouse Techniques', 3, 8),
+  (38, 'CS4732', 'Software Quality Assurance', 3, 8),
+  (39, 'CS4802', 'Research Report', 3, 8),
+  (40, 'CS4804', 'Project-II', 3, 8);
