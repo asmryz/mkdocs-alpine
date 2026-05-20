@@ -326,7 +326,7 @@ router.post("/courses", async (req, res) => {
 ```
 8. Now we can edit and save the course. 
 
-
+![Final Demo](assests/project.png)
 
 # ❓ Practice Task
 ## 🛠️ The Backend Setup
