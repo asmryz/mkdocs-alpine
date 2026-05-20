@@ -12,6 +12,8 @@ extra_css:
     - stylesheets/extra.css
 
 markdown_extensions:
+    - attr_list
+    - md_in_html
     - pymdownx.highlight:
           anchor_linenums: true
           linenums: true
@@ -40,3 +42,4 @@ nav:
     - 13. API Clients: rest-api-client.md
     - 14. Alpine.js CRUD: alpinejs-crud-app.md
     - 15. Final Project: final-project.md
+    # - 16. Table: table.md
